@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -95,17 +95,18 @@
 
 
 
-<meta name="description" content="注:  本资料系学习整理。 (1) shell版本与使用 一般有6个虚拟控制台，用  到  切换，或  (n=2~6) 快速切换.   bash,即 GNU 的 Bourne Again Shell，是 ubuntu 上常见的shell， 查看版本号1$ bash -version      有时候可以进行自动补齐.   “；” 隔开不同的命令.  “|” 管道，先进先出单向操作，将前一个命令的输">
+<meta name="description" content="注:  本资料系学习整理。">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shell 基本命令">
-<meta property="og:url" content="http://yoursite.com/2017/09/13/shell基本命令/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/09/15/shell基本命令/index.html">
 <meta property="og:site_name" content="白河之家">
-<meta property="og:description" content="注:  本资料系学习整理。 (1) shell版本与使用 一般有6个虚拟控制台，用  到  切换，或  (n=2~6) 快速切换.   bash,即 GNU 的 Bourne Again Shell，是 ubuntu 上常见的shell， 查看版本号1$ bash -version      有时候可以进行自动补齐.   “；” 隔开不同的命令.  “|” 管道，先进先出单向操作，将前一个命令的输">
+<meta property="og:description" content="注:  本资料系学习整理。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-13T13:26:46.669Z">
+<meta property="og:updated_time" content="2017-09-15T01:50:29.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell 基本命令">
-<meta name="twitter:description" content="注:  本资料系学习整理。 (1) shell版本与使用 一般有6个虚拟控制台，用  到  切换，或  (n=2~6) 快速切换.   bash,即 GNU 的 Bourne Again Shell，是 ubuntu 上常见的shell， 查看版本号1$ bash -version      有时候可以进行自动补齐.   “；” 隔开不同的命令.  “|” 管道，先进先出单向操作，将前一个命令的输">
+<meta name="twitter:description" content="注:  本资料系学习整理。">
 
 
 
@@ -113,7 +114,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.2',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -135,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/13/shell基本命令/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/15/shell基本命令/"/>
 
 
 
@@ -206,6 +207,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -248,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/13/shell基本命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/15/shell基本命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="白河">
@@ -277,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T21:26:46+08:00">
-                2017-09-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T09:50:29+08:00">
+                2017-09-15
               </time>
             
 
@@ -315,8 +326,8 @@
       
 
       
-        <p>注:  本资料系学习整理。</p>
-<h3 id="1-shell版本与使用"><a href="#1-shell版本与使用" class="headerlink" title="(1) shell版本与使用"></a>(1) shell版本与使用</h3><ul>
+        <p>注:  本资料系学习整理。<br><a id="more"></a></p>
+<h3 id="shell版本与使用"><a href="#shell版本与使用" class="headerlink" title="shell版本与使用"></a>shell版本与使用</h3><ul>
 <li>一般有6个虚拟控制台，用 <alt+f1\> 到 <alt+f6\> 切换，或 <alt+ctrl+fn\> (n=2~6) 快速切换.</alt+ctrl+fn\></alt+f6\></alt+f1\></li>
 </ul>
 <ol>
@@ -337,16 +348,36 @@
 <li>“&lt;” 输入, “&gt;”, “&gt;&gt;” 输出，下例将当前目录下所有文件名输出到result<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -l &gt; result</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="2-文件管理"><a href="#2-文件管理" class="headerlink" title="(2) 文件管理"></a>(2) 文件管理</h3><ul>
+<h3 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h3><ul>
 <li>“~” 引用自己的主目录(/home/aby,其中 aby 是自己的账号名)</li>
 <li>常用通配符</li>
 </ul>
-<p><table></table></p>
-<p><tr> <th> * </th></tr></p>
-<p><th>任意字符</th></p>
-<p><tr><th>?</th><th>任一字符</th></tr></p>
-<p><tr><th>[a-f]</th><th>a 到 f 中任一字符</th></tr></p>
-<p><tr><th>\</th><th>转义字符</th><br></tr></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">符号</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">任意字符</td>
+</tr>
+<tr>
+<td style="text-align:left">?</td>
+<td style="text-align:left">任一字符</td>
+</tr>
+<tr>
+<td style="text-align:left">[a-f]</td>
+<td style="text-align:left">a 到 f 中任一字符</td>
+</tr>
+<tr>
+<td style="text-align:left">\</td>
+<td style="text-align:left">转义字符</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><strong>cat</strong> 在命令行预览文件</li>
 </ul>
@@ -359,7 +390,7 @@
 <li><strong>less</strong> 按页显示，功能比前两者更强大<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ less --<span class="built_in">help</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="3-文件操作"><a href="#3-文件操作" class="headerlink" title="(3) 文件操作"></a>(3) 文件操作</h3><ul>
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><ul>
 <li><strong>cp</strong> 复制</li>
 </ul>
 <p>将所有c语言源程序拷贝到Fi目录下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp *.c Fi</div></pre></td></tr></table></figure></p>
@@ -380,7 +411,7 @@
 <li><p><strong>pwd</strong> 显示当前路径</p>
 </li>
 <li><p><strong>cd</strong> 更改工作路径, “..” 表示上层, “.” 表示当前层</p>
-<h3 id="4-查找与检索"><a href="#4-查找与检索" class="headerlink" title="(4) 查找与检索"></a>(4) 查找与检索</h3></li>
+<h3 id="查找与检索"><a href="#查找与检索" class="headerlink" title="查找与检索"></a>查找与检索</h3></li>
 <li><strong>ls</strong> 查看目录</li>
 </ul>
 <p>显示 “.” 开头的隐藏文件并列出目录下的所有子文件，用长格式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -l -a -R</div></pre></td></tr></table></figure></p>
@@ -409,7 +440,7 @@
 <li><p><strong>diff</strong> 比较两个文件内容(以及 diff3)</p>
 </li>
 <li><p><strong>sort</strong> 对某个文件排序</p>
-<h3 id="5-压缩文件与其他"><a href="#5-压缩文件与其他" class="headerlink" title="(5) 压缩文件与其他"></a>(5) 压缩文件与其他</h3></li>
+<h3 id="压缩文件与其他"><a href="#压缩文件与其他" class="headerlink" title="压缩文件与其他"></a>压缩文件与其他</h3></li>
 <li><strong>tar</strong> 备份</li>
 </ul>
 <p>打包、报告信息并指定备份文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -cvf 1.tar dir_to_compress</div></pre></td></tr></table></figure></p>
@@ -429,7 +460,7 @@
 <li><p><strong>date</strong> 日期设置</p>
 </li>
 <li><p><strong>clear</strong> 清屏(伪)</p>
-<h3 id="6-奇怪的命令"><a href="#6-奇怪的命令" class="headerlink" title="(6) 奇怪的命令"></a>(6) 奇怪的命令</h3></li>
+<h3 id="奇怪的命令"><a href="#奇怪的命令" class="headerlink" title="奇怪的命令"></a>奇怪的命令</h3></li>
 <li><strong>ping</strong> 网络命令</li>
 </ul>
 <p>向本机网络接口发送10个数据包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ping -c 10 127.0.0.1</div></pre></td></tr></table></figure></p>
@@ -472,7 +503,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">let</span> a=5+4 b=9/3</div><div class="line">$ <span class="built_in">echo</span> <span class="variable">$a</span> <span class="variable">$b</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="7-更多命令"><a href="#7-更多命令" class="headerlink" title="(7) 更多命令"></a>(7) 更多命令</h3><p>可参考<a href="http://man.linuxde.net" target="_blank" rel="external">Linux命令大全</a>.</p>
+<h3 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h3><p>可参考<a href="http://man.linuxde.net" target="_blank" rel="external">Linux命令大全</a>.</p>
 
       
     </div>
@@ -488,6 +519,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
 
       
       
@@ -497,7 +534,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/12/hello-world/" rel="next" title="Hello World">
+              <a href="/2017/09/15/hello-world/" rel="next" title="Hello World">
                 <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
@@ -525,6 +562,9 @@
     <div class="post-spread">
       
     </div>
+<span id="busuanzi_container_page_pv">
+   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
   </div>
 
 
@@ -590,6 +630,15 @@
           
 
           
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
 
         </nav>
 
@@ -620,7 +669,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-shell版本与使用"><span class="nav-number">1.</span> <span class="nav-text">(1) shell版本与使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-文件管理"><span class="nav-number">2.</span> <span class="nav-text">(2) 文件管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-文件操作"><span class="nav-number">3.</span> <span class="nav-text">(3) 文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-查找与检索"><span class="nav-number">4.</span> <span class="nav-text">(4) 查找与检索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-压缩文件与其他"><span class="nav-number">5.</span> <span class="nav-text">(5) 压缩文件与其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-奇怪的命令"><span class="nav-number">6.</span> <span class="nav-text">(6) 奇怪的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-更多命令"><span class="nav-number">7.</span> <span class="nav-text">(7) 更多命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell版本与使用"><span class="nav-number">1.</span> <span class="nav-text">shell版本与使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件管理"><span class="nav-number">2.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件操作"><span class="nav-number">3.</span> <span class="nav-text">文件操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找与检索"><span class="nav-number">4.</span> <span class="nav-text">查找与检索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩文件与其他"><span class="nav-number">5.</span> <span class="nav-text">压缩文件与其他</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#奇怪的命令"><span class="nav-number">6.</span> <span class="nav-text">奇怪的命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多命令"><span class="nav-number">7.</span> <span class="nav-text">更多命令</span></a></li></ol></div>
             
 
           </div>
@@ -641,6 +690,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright" >
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   
   &copy; 
   <span itemprop="copyrightYear">2017</span>
@@ -653,11 +703,17 @@
 </div>
 
 
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv">人；</span>
+</span>
+</div>
+
   <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
 
 
         

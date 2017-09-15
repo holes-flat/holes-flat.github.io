@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -109,7 +109,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.2',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -203,6 +203,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -245,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/13/shell基本命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/15/shell基本命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="白河">
@@ -264,7 +274,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/13/shell基本命令/" itemprop="url">Shell 基本命令</a></h1>
+                <a class="post-title-link" href="/2017/09/15/shell基本命令/" itemprop="url">Shell 基本命令</a></h1>
         
 
         <div class="post-meta">
@@ -276,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-13T21:26:46+08:00">
-                2017-09-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T09:50:29+08:00">
+                2017-09-15
               </time>
             
 
@@ -315,167 +325,14 @@
 
       
         
-          
-            <p>注:  本资料系学习整理。</p>
-<h3 id="1-shell版本与使用"><a href="#1-shell版本与使用" class="headerlink" title="(1) shell版本与使用"></a>(1) shell版本与使用</h3><ul>
-<li>一般有6个虚拟控制台，用 <alt+f1\> 到 <alt+f6\> 切换，或 <alt+ctrl+fn\> (n=2~6) 快速切换.</alt+ctrl+fn\></alt+f6\></alt+f1\></li>
-</ul>
-<ol>
-<li>bash,即 GNU 的 Bourne Again Shell，是 ubuntu 上常见的shell， 查看版本号<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ bash -version</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li><tab\>  有时候可以进行自动补齐.</tab\></li>
-</ul>
-<ol>
-<li><p>“；” 隔开不同的命令.</p>
-</li>
-<li><p>“|” 管道，先进先出单向操作，将前一个命令的输出传到下一个命令作为输入，例如下面的命令查看硬件信息，并通过grep检索其中出现的字段</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ lspci | grep USB</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>“&lt;” 输入, “&gt;”, “&gt;&gt;” 输出，下例将当前目录下所有文件名输出到result<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -l &gt; result</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="2-文件管理"><a href="#2-文件管理" class="headerlink" title="(2) 文件管理"></a>(2) 文件管理</h3><ul>
-<li>“~” 引用自己的主目录(/home/aby,其中 aby 是自己的账号名)</li>
-<li>常用通配符</li>
-</ul>
-<p><table></table></p>
-<p><tr> <th> * </th></tr></p>
-<p><th>任意字符</th></p>
-<p><tr><th>?</th><th>任一字符</th></tr></p>
-<p><tr><th>[a-f]</th><th>a 到 f 中任一字符</th></tr></p>
-<p><tr><th>\</th><th>转义字符</th><br></tr></p>
-<ul>
-<li><strong>cat</strong> 在命令行预览文件</li>
-</ul>
-<p>下例预览文件并显示行号<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cat -n 文件名</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>more</strong> 分屏显示</li>
-</ul>
-<p>从test.h中寻找include字符串并清空屏幕在顶端显示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ more -p +/include test.h</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>less</strong> 按页显示，功能比前两者更强大<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ less --<span class="built_in">help</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="3-文件操作"><a href="#3-文件操作" class="headerlink" title="(3) 文件操作"></a>(3) 文件操作</h3><ul>
-<li><strong>cp</strong> 复制</li>
-</ul>
-<p>将所有c语言源程序拷贝到Fi目录下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp *.c Fi</div></pre></td></tr></table></figure></p>
-<p>对目录进行操作(递归)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ cp -r dir1 dir2</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>rm</strong> 删除</li>
-</ul>
-<p>删除空目录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm -d dir1</div></pre></td></tr></table></figure></p>
-<p>删除前进行提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm -i a.txt</div></pre></td></tr></table></figure></p>
-<p>删除无法打开的文件，不进行提示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ rm -f file1</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>mv</strong> 移动或重命名</p>
-</li>
-<li><p><strong>mkdir</strong> 创建目录</p>
-</li>
-<li><p><strong>rmdir</strong> 删除空目录</p>
-</li>
-<li><p><strong>pwd</strong> 显示当前路径</p>
-</li>
-<li><p><strong>cd</strong> 更改工作路径, “..” 表示上层, “.” 表示当前层</p>
-<h3 id="4-查找与检索"><a href="#4-查找与检索" class="headerlink" title="(4) 查找与检索"></a>(4) 查找与检索</h3></li>
-<li><strong>ls</strong> 查看目录</li>
-</ul>
-<p>显示 “.” 开头的隐藏文件并列出目录下的所有子文件，用长格式<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ls -l -a -R</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>find</strong> 查找</li>
-</ul>
-<p>需要指定查找路径，比如<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ find */*/*.pdf</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>locate</strong> 定位文件</li>
-</ul>
-<p>可以直接查找文件名中出现的字符串</p>
-<ul>
-<li><strong>grep</strong> 文件内容检索</li>
-</ul>
-<p>忽略大小写<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ grep -i gcc */*.txt</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>ln</strong> 链接</li>
-</ul>
-<p>创建软链接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ln -s &lt;<span class="built_in">source</span>\&gt; &lt;dest\&gt;</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>touch</strong> 修改、创建文件</li>
-</ul>
-<p>将 file2 的时间记录改为与 file1 一样<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ touch -r file1 file2</div></pre></td></tr></table></figure></p>
-<p>创建/修改文件，并指定时间<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ touch -t 1709111803 file</div><div class="line">$ touch -d <span class="string">"6:03 pm 09/11/2017"</span> file</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>diff</strong> 比较两个文件内容(以及 diff3)</p>
-</li>
-<li><p><strong>sort</strong> 对某个文件排序</p>
-<h3 id="5-压缩文件与其他"><a href="#5-压缩文件与其他" class="headerlink" title="(5) 压缩文件与其他"></a>(5) 压缩文件与其他</h3></li>
-<li><strong>tar</strong> 备份</li>
-</ul>
-<p>打包、报告信息并指定备份文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -cvf 1.tar dir_to_compress</div></pre></td></tr></table></figure></p>
-<p>释放、报告信息并指定备份文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tar -xvf 1.tar</div><div class="line">$ tar -xvf 1.tar /extract_here/</div></pre></td></tr></table></figure></p>
-<p>使用 gzip 压缩或解压<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ tar -zcvf 1.tar.gz dir_to_compress</div><div class="line">$ tar -zxvf 1.tar.gz</div></pre></td></tr></table></figure></p>
-<p>通过bzip2压缩或解压<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ tar -jcvf 1.tar.bz2 dir_to_compress</div></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>zip</strong> 压缩</li>
-</ul>
-<p>压缩一个目录(-r)并解压<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ zip -r 1.zip dir1</div><div class="line">$ unzip 1.zip</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>echo</strong> 显示文字</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">echo</span> <span class="string">"a is <span class="variable">$pig</span>"</span>			<span class="comment">#$后字符不会输出，表示变量</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>cal</strong> 显示日历</p>
-</li>
-<li><p><strong>date</strong> 日期设置</p>
-</li>
-<li><p><strong>clear</strong> 清屏(伪)</p>
-<h3 id="6-奇怪的命令"><a href="#6-奇怪的命令" class="headerlink" title="(6) 奇怪的命令"></a>(6) 奇怪的命令</h3></li>
-<li><strong>ping</strong> 网络命令</li>
-</ul>
-<p>向本机网络接口发送10个数据包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ping -c 10 127.0.0.1</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>xrandr</strong> 强制改变屏幕分辨率</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ xrandr -s 1360x768</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>mount</strong> 挂载(未试验过！！！)</p>
-</li>
-</ul>
-<p>将C盘挂载到 /mnt 目录下并卸载<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo mount /dev/sda1 /mnt/driver_c</div><div class="line">$ sudo umount /dev/sda1</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>fdisk</strong> 查看硬盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo fdisk -l</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>apt-get</strong> 下载软件</p>
-</li>
-<li><p><strong>free</strong> 内存查看</p>
-</li>
-</ul>
-<p>用兆(M)作为显示单位<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ free -m</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>df</strong> 查看硬盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ df -h</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>ls+命令</strong> 查看各种接口</p>
-</li>
-</ul>
-<p>如 lsmod, lspci, dmesg, lsusb 等</p>
-<ul>
-<li><strong>chmod</strong> 更改访问权限</li>
-</ul>
-<p>三个数字分别表示拥有者(u)、所属组(g)和其他人(o)(a表示这三者)的权限，可读(r=4)，可写(w=2)， 可执行(x=1)，可以使用 +，- 或 = 更改权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ chmod ugo+r file1		<span class="comment">#所有人可读</span></div><div class="line">$ chmod a=rwx file			<span class="comment">#所有人可读可写可执行</span></div><div class="line">$ chmod 777 file			<span class="comment">#等价于上一句</span></div><div class="line">$ chmod 700 file			<span class="comment">#只有所有者有三种权限</span></div></pre></td></tr></table></figure></p>
-<p>对 .sh 文件一般需要赋予可执行权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ chmod +x 1.sh</div></pre></td></tr></table></figure></p>
-<ul>
-<li><p><strong>expr</strong> 计算表达式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ expr 2 + 3			<span class="comment">#输出5</span></div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>let</strong> 计算表达式</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">let</span> a=5+4 b=9/3</div><div class="line">$ <span class="built_in">echo</span> <span class="variable">$a</span> <span class="variable">$b</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="7-更多命令"><a href="#7-更多命令" class="headerlink" title="(7) 更多命令"></a>(7) 更多命令</h3><p>可参考<a href="http://man.linuxde.net" target="_blank" rel="external">Linux命令大全</a>.</p>
-
-          
+          <p>注:  本资料系学习整理。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/15/shell基本命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -522,7 +379,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/12/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/15/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="白河">
@@ -541,7 +398,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/09/12/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2017/09/15/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -553,8 +410,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T21:37:53+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-15T09:31:01+08:00">
+                2017-09-15
               </time>
             
 
@@ -592,18 +449,14 @@
 
       
         
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
+          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/15/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -691,6 +544,15 @@
           
 
           
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
 
         </nav>
 
@@ -726,6 +588,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright" >
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   
   &copy; 
   <span itemprop="copyrightYear">2017</span>
@@ -738,11 +601,17 @@
 </div>
 
 
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv">人；</span>
+</span>
+</div>
+
   <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
   <span class="post-meta-divider">|</span>
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.2</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
 
 
         
