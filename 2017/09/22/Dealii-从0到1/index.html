@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Applied Math," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="本次学习使用 dealii.8.1.0，版本即将失效，同最新版本可能很不一样。学习方式是从安装包的 example 文件中阅读说明。大多数代码来自deal.ii library。">
+<meta name="keywords" content="Applied Math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dealii:从0到1">
+<meta property="og:url" content="http://yoursite.com/2017/09/22/Dealii-从0到1/index.html">
+<meta property="og:site_name" content="白河之家">
+<meta property="og:description" content="本次学习使用 dealii.8.1.0，版本即将失效，同最新版本可能很不一样。学习方式是从安装包的 example 文件中阅读说明。大多数代码来自deal.ii library。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-23T05:42:54.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dealii:从0到1">
+<meta name="twitter:description" content="本次学习使用 dealii.8.1.0，版本即将失效，同最新版本可能很不一样。学习方式是从安装包的 example 文件中阅读说明。大多数代码来自deal.ii library。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/09/22/Dealii-从0到1/"/>
+
+
+
+
+
+  <title>Dealii:从0到1 | 白河之家</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">白河之家</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/22/Dealii-从0到1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="白河">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="白河之家">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dealii:从0到1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T09:33:54+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本次学习使用 dealii.8.1.0，版本即将失效，同最新版本可能很不一样。学习方式是从安装包的 example 文件中阅读说明。大多数代码来自deal.ii library。<br><a id="more"></a></p>
+<h2 id="Include-files"><a href="#Include-files" class="headerlink" title="Include files"></a>Include files</h2><h3 id="lt-deal-II-grid-tria-h"><a href="#lt-deal-II-grid-tria-h" class="headerlink" title="&lt; deal.II/grid/tria.h >"></a>&lt; deal.II/grid/tria.h ></h3><p>最基本的类。</p>
+<h3 id="lt-deal-II-grid-tria-accessor-h"><a href="#lt-deal-II-grid-tria-accessor-h" class="headerlink" title="&lt; deal.II/grid/tria_accessor.h >"></a>&lt; deal.II/grid/tria_accessor.h ></h3><p>在各个网格做环游。</p>
+<h3 id="lt-deal-II-grid-tria-iterator-h"><a href="#lt-deal-II-grid-tria-iterator-h" class="headerlink" title="&lt; deal.II/grid/tria_iterator.h >"></a>&lt; deal.II/grid/tria_iterator.h ></h3><p>在各个网格做环游。</p>
+<h3 id="lt-deal-II-grid-grid-generator-h"><a href="#lt-deal-II-grid-grid-generator-h" class="headerlink" title="&lt; deal.II/grid/grid_generator.h >"></a>&lt; deal.II/grid/grid_generator.h ></h3><p>生成标准网格</p>
+<h3 id="lt-deal-II-grid-tria-boundary-lib-h"><a href="#lt-deal-II-grid-tria-boundary-lib-h" class="headerlink" title="&lt; deal.II/grid/tria_boundary_lib.h >"></a>&lt; deal.II/grid/tria_boundary_lib.h ></h3><p>描述曲边边界。</p>
+<h3 id="lt-deal-II-grid-grid-out-h"><a href="#lt-deal-II-grid-grid-out-h" class="headerlink" title="&lt; deal.II/grid/grid_out.h >"></a>&lt; deal.II/grid/grid_out.h ></h3><p>输出网格数据。</p>
+<h3 id="lt-deal-II-dofs-dof-handler-h"><a href="#lt-deal-II-dofs-dof-handler-h" class="headerlink" title="&lt; deal.II/dofs/dof_handler.h >"></a>&lt; deal.II/dofs/dof_handler.h ></h3><p>联系顶点、边或单元上的自由度。</p>
+<h3 id="lt-deal-II-fe-fe-q-h"><a href="#lt-deal-II-fe-fe-q-h" class="headerlink" title="&lt; deal.II/fe/fe_q.h >"></a>&lt; deal.II/fe/fe_q.h ></h3><p>双线性有限元，只有顶点上的自由度。可以设置不同的多项式次数(拉格朗日插值)。</p>
+<h3 id="lt-deal-II-dofs-dof-tools-h"><a href="#lt-deal-II-dofs-dof-tools-h" class="headerlink" title="&lt; deal.II/dofs/dof_tools.h >"></a>&lt; deal.II/dofs/dof_tools.h ></h3><p>操作自由度的工具。比如创建稀疏矩阵。</p>
+<h3 id="lt-deal-II-lac-sparse-matrix-h"><a href="#lt-deal-II-lac-sparse-matrix-h" class="headerlink" title="&lt; deal.II/lac/sparse_matrix.h >"></a>&lt; deal.II/lac/sparse_matrix.h ></h3><p>稀疏矩阵，存放元素的值。</p>
+<h3 id="lt-deal-II-lac-compressed-sparsity-pattern-h"><a href="#lt-deal-II-lac-compressed-sparsity-pattern-h" class="headerlink" title="&lt; deal.II/lac/compressed_sparsity_pattern.h >"></a>&lt; deal.II/lac/compressed_sparsity_pattern.h ></h3><p>数据结构，存放元素所在的位置信息。用compressed主要目的是减少浪费的空间。</p>
+<h3 id="lt-deal-II-dofs-dof-renumbering-h"><a href="#lt-deal-II-dofs-dof-renumbering-h" class="headerlink" title="&lt; deal.II/dofs/dof_renumbering.h >"></a>&lt; deal.II/dofs/dof_renumbering.h ></h3><p>重新计算自由度的算法。</p>
+<h3 id="lt-deal-II-dofs-dof-accessor-h"><a href="#lt-deal-II-dofs-dof-accessor-h" class="headerlink" title="&lt; deal.II/dofs/dof_accessor.h >"></a>&lt; deal.II/dofs/dof_accessor.h ></h3><p>提供单元自由度相关的信息。</p>
+<h3 id="lt-deal-II-fe-fe-values-h"><a href="#lt-deal-II-fe-fe-values-h" class="headerlink" title="&lt; deal.II/fe/fe_values.h >"></a>&lt; deal.II/fe/fe_values.h ></h3><p>在引用的单元和真实单元上给出我们想要的信息(积分值，梯度，权重乘以Jacobian矩阵)。</p>
+<h3 id="lt-deal-II-base-quadrature-lib-h"><a href="#lt-deal-II-base-quadrature-lib-h" class="headerlink" title="&lt; deal.II/base/quadrature_lib.h >"></a>&lt; deal.II/base/quadrature_lib.h ></h3><h3 id="lt-deal-II-base-function-h"><a href="#lt-deal-II-base-function-h" class="headerlink" title="&lt; deal.II/base/function.h >"></a>&lt; deal.II/base/function.h ></h3><p>右端项和边界条件中的函数需要继承这个类，并至少重载(?)::value()函数。</p>
+<h3 id="lt-deal-II-numerics-vector-tools-h"><a href="#lt-deal-II-numerics-vector-tools-h" class="headerlink" title="&lt; deal.II/numerics/vector_tools.h >"></a>&lt; deal.II/numerics/vector_tools.h ></h3><h3 id="lt-deal-II-numerics-matrix-tools-h"><a href="#lt-deal-II-numerics-matrix-tools-h" class="headerlink" title="&lt; deal.II/numerics/matrix_tools.h >"></a>&lt; deal.II/numerics/matrix_tools.h ></h3><h3 id="lt-deal-II-lac-vector-h"><a href="#lt-deal-II-lac-vector-h" class="headerlink" title="&lt; deal.II/lac/vector.h >"></a>&lt; deal.II/lac/vector.h ></h3><h3 id="lt-deal-II-lac-full-matrix-h"><a href="#lt-deal-II-lac-full-matrix-h" class="headerlink" title="&lt; deal.II/lac/full_matrix.h >"></a>&lt; deal.II/lac/full_matrix.h ></h3><h3 id="lt-deal-II-lac-solver-cg-h"><a href="#lt-deal-II-lac-solver-cg-h" class="headerlink" title="&lt; deal.II/lac/solver_cg.h >"></a>&lt; deal.II/lac/solver_cg.h ></h3><h3 id="lt-deal-II-lac-precondition-h"><a href="#lt-deal-II-lac-precondition-h" class="headerlink" title="&lt; deal.II/lac/precondition.h >"></a>&lt; deal.II/lac/precondition.h ></h3><h3 id="lt-deal-II-numerics-data-out-h"><a href="#lt-deal-II-numerics-data-out-h" class="headerlink" title="&lt; deal.II/numerics/data_out.h >"></a>&lt; deal.II/numerics/data_out.h ></h3><h3 id="lt-deal-II-base-logstream-h"><a href="#lt-deal-II-base-logstream-h" class="headerlink" title="&lt; deal.II/base/logstream.h >"></a>&lt; deal.II/base/logstream.h ></h3><p>省略不必要的线性求解器的提示。</p>
+<h3 id="lt-deal-II-base-utilities-h"><a href="#lt-deal-II-base-utilities-h" class="headerlink" title="&lt; deal.II/base/utilities.h >"></a>&lt; deal.II/base/utilities.h ></h3><h3 id="lt-deal-II-lac-constraint-matrix-h"><a href="#lt-deal-II-lac-constraint-matrix-h" class="headerlink" title="&lt; deal.II/lac/constraint_matrix.h >"></a>&lt; deal.II/lac/constraint_matrix.h ></h3><p>局部加细的限制条件。</p>
+<h3 id="lt-deal-II-grid-grid-refinement-h"><a href="#lt-deal-II-grid-grid-refinement-h" class="headerlink" title="&lt; deal.II/grid/grid_refinement.h >"></a>&lt; deal.II/grid/grid_refinement.h ></h3><p>同局部加细有关。</p>
+<h3 id="lt-deal-II-numerics-error-estimator-h"><a href="#lt-deal-II-numerics-error-estimator-h" class="headerlink" title="&lt; deal.II/numerics/error_estimator.h >"></a>&lt; deal.II/numerics/error_estimator.h ></h3><h3 id="lt-deal-II-numerics-solution-transfer-h"><a href="#lt-deal-II-numerics-solution-transfer-h" class="headerlink" title="&lt; deal.II/numerics/solution_transfer.h >"></a>&lt; deal.II/numerics/solution_transfer.h ></h3><h3 id="lt-deal-II-numerics-error-estimator-h-1"><a href="#lt-deal-II-numerics-error-estimator-h-1" class="headerlink" title="&lt; deal.II/numerics/error_estimator.h >"></a>&lt; deal.II/numerics/error_estimator.h ></h3><h2 id="Basic-Operations"><a href="#Basic-Operations" class="headerlink" title="Basic Operations"></a>Basic Operations</h2><h3 id="using-namespace-dealii"><a href="#using-namespace-dealii" class="headerlink" title="using namespace dealii;"></a>using namespace dealii;</h3><h3 id="矩形网格剖分"><a href="#矩形网格剖分" class="headerlink" title="矩形网格剖分"></a>矩形网格剖分</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Triangulation&lt;<span class="number">2</span>&gt; tria1;</div><div class="line">GridGenerator::hyper_cube (tria1);</div><div class="line">tria1.refine_global(<span class="number">4</span>);</div><div class="line"><span class="built_in">std</span>::<span class="function">ofstream <span class="title">out</span> <span class="params">(<span class="string">"1.eps"</span>)</span></span>;</div><div class="line">GridOut grid_out;</div><div class="line">grid_out.write_eps(tria1, out);</div></pre></td></tr></table></figure>
+<p>结果生成了[0,1]x[0,1]上均匀剖分的4<sup>4</sup>个网格(即16<em>16)，如果将<2>换成<3>，将得到2<sup>4<sup>3</sup></sup>即16\</3></2></em>16*16的网格。</p>
+<h3 id="遍历单元"><a href="#遍历单元" class="headerlink" title="遍历单元"></a>遍历单元</h3><p>对不同cell进行遍历<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Triangulation&lt;<span class="number">2</span>&gt;::active_cell_iterator </div><div class="line">cell = tria1.begin_active() ,</div><div class="line">endc = tria1.end();</div><div class="line"><span class="keyword">for</span> (: cell != endc; ++cell)&#123;&#125;</div></pre></td></tr></table></figure></p>
+<p>遍历每个cell的顶点<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Point&lt;<span class="number">2</span>&gt; center (<span class="number">1</span>,<span class="number">0</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> v = <span class="number">0</span>; </div><div class="line">v &lt; GeometryInfo&lt;<span class="number">2</span>&gt;::vertices_per_cell; ++v)&#123;</div><div class="line">	<span class="keyword">const</span> <span class="keyword">double</span> dis = center.distance(cell -&gt; vertex(v));</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="分配自由度"><a href="#分配自由度" class="headerlink" title="分配自由度"></a>分配自由度</h3><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">DofHandler&lt;<span class="number">2</span>&gt; dof_handler;</div><div class="line"><span class="keyword">static</span> <span class="keyword">const</span> FE_Q&lt;<span class="number">2</span>&gt; fe(<span class="number">1</span>);</div><div class="line">dof_handler.distribute_dofs (fe);</div><div class="line"><span class="comment">// DoFRenumbering::Cuthill_Mckee (dof_handler);</span></div><div class="line">CompressedSparsityPattern csp(dof_handler.n_dofs(), dof_handler.n_dofs());</div><div class="line">DoFTools::make_sparsity_pattern (dof_handler, csp);</div><div class="line">SparsityPattern s_pattern;</div><div class="line">s_pattern.copy_from(csp);</div><div class="line"><span class="built_in">std</span>::<span class="function">ofstream <span class="title">out</span> <span class="params">(<span class="string">"see.1"</span>)</span></span></div><div class="line">s_pattern.print_gnuplot(out);</div></pre></td></tr></table></figure>
+<p>以上得到的矩阵可能排序比较随机，为了得到离单位阵接近的形式，采用重新计数编号的方法，即在上面的代码中加入一行:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DoFRenumbering::Cuthill_Mckee (dof_handler);</div></pre></td></tr></table></figure></p>
+<h3 id="小结-一-解Laplace方程"><a href="#小结-一-解Laplace方程" class="headerlink" title="小结(一): 解Laplace方程"></a>小结(一): 解Laplace方程</h3><p>类变量<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Triangulation&lt;<span class="number">2</span>&gt; tria1;</div><div class="line">FE_Q&lt;<span class="number">2</span>&gt; fe;</div><div class="line">DoFHandler&lt;<span class="number">2</span>&gt; dof_handler;</div><div class="line">SparsityPattern sparsity_pattern;</div><div class="line">SparseMatrix&lt;<span class="keyword">double</span>&gt; system_matrix;</div><div class="line">Vector&lt;<span class="keyword">double</span>&gt; solution;</div><div class="line">Vector&lt;<span class="keyword">double</span>&gt; system_rhs;</div></pre></td></tr></table></figure></p>
+<p>初始化函数<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">fe(<span class="number">1</span>);</div><div class="line">dof_handler(tria1);</div></pre></td></tr></table></figure></p>
+<p>网格设置如前述，这两个函数返回单元个数。注意’活动’单元指不再被细分的网格，总单元指所有单元。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">make_grid</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">tria1.n_active_cells();</div><div class="line">tria1.n_cells;</div></pre></td></tr></table></figure></p>
+<p>分配自由度(DoFHandler::distribute_dofs())以及构建代数系统,reinit设置了向量或稀疏矩阵的尺寸大小以及sparsity pattern。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">setup_system</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">system_matrix.reinit(sparsity_pattern);</div><div class="line">solution.reinit(dof_handler.n_dofs());</div><div class="line">system_rhs.reinit(dof_handler.n_dofs());</div></pre></td></tr></table></figure></p>
+<p>组装代数系统。这里的cell_matrix相当于4*4的小矩阵，只在单元上计算。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">assemble_system</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">QGauss&lt;<span class="number">2</span>&gt; quadrature_formula(<span class="number">2</span>);	<span class="comment">//积分点和权重</span></div><div class="line">FEValues&lt;<span class="number">2</span>&gt; fe_values(fe, quadrature_formula,</div><div class="line">	update_values | update_gradients | update_JxW_values);</div><div class="line"><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> dofs_per_cell = fe.dofs_per_cell;</div><div class="line"><span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> n_q_points = quadrature_formula.size();</div><div class="line">FullMatrix&lt;<span class="keyword">double</span>&gt; cell_matrix (dofs_per_cell, dofs_per_cell);</div><div class="line">Vector&lt;<span class="keyword">double</span>&gt; cell_rhs(dofs_per_cell)</div></pre></td></tr></table></figure></p>
+<p>(接下来真的组装成全局的大矩阵)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;types::global_dof_index&gt; local_dof_indices(dofs_per_cell);</div><div class="line">DoFHandler&lt;<span class="number">2</span>&gt;::active_cell_iterator </div><div class="line">cell = dof_handler.begin_active() ,</div><div class="line">endc = dof_handler.end();</div><div class="line"><span class="keyword">for</span> (: cell != endc; ++cell)&#123;</div><div class="line">	fe_values.reinit(cell);</div><div class="line">	cell_matrix = <span class="number">0</span>;</div><div class="line">	cell_rhs = <span class="number">0</span>;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i&lt;dofs_per_cell; ++i)&#123;</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span> j = <span class="number">0</span>; j&lt;dofs_per_cell; ++j)&#123;</div><div class="line">			<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> q_point = <span class="number">0</span>; q_point&lt;n_q_points; ++q_point)&#123;</div><div class="line">				cell_matrix(i,j) += (fe_values.shape_grad(i,q_point)*	<span class="comment">//这是点积</span></div><div class="line">					fe_values.shape_grad(j,q_point)*</div><div class="line">					fe_values.JxW(q_point));</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//假设右端项为1</span></div><div class="line"><span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;dofs_per_cell; ++i)</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> q_point=<span class="number">0</span>; q_point&lt;n_q_points; ++q_point)</div><div class="line">		cell_rhs(i) += (fe_values.shape_value (i, q_point) *</div><div class="line">                          <span class="number">1</span> *</div><div class="line">                          fe_values.JxW (q_point));</div><div class="line">cell -&gt;get_dof_indices(local_dof_indices);</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i&lt;dofs_per_cell; ++i)</div><div class="line">		<span class="keyword">for</span>(<span class="keyword">unsigned</span> <span class="keyword">int</span> j = <span class="number">0</span>; j&lt;dofs_per_cell; ++j)</div><div class="line">			system_matrix.add(local_dof_indices[i],</div><div class="line">				local_dof_indices[j], cell_matrix(i,j));</div><div class="line">	</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i&lt;dofs_per_cell; ++i)</div><div class="line">		system_rhs(local_dof_indices[i]) += cell_rhs(i);</div></pre></td></tr></table></figure></p>
+<p>(边界标识与边界条件)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;types::global_dof_index, <span class="keyword">double</span>&gt; boundary_values;</div><div class="line">VectorTools::interpolate_boundary_values (dof_handler,</div><div class="line">		<span class="number">0</span>, ZeroFunction&lt;<span class="number">2</span>&gt;(), boundary_values);</div><div class="line">MatrixTools::apply_boundary_values(boundary_values,</div><div class="line">	system_matrix, solution, system_rhs);</div></pre></td></tr></table></figure></p>
+<p>解代数方程组<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span></span>&#123;&#125;</div><div class="line"><span class="function">SolverControl <span class="title">solver_control</span><span class="params">(<span class="number">1000</span>, <span class="number">1e-12</span>)</span></span>;</div><div class="line">SolverCG&lt;&gt; solevr(solver_control);</div><div class="line">solver.solve(system_matrix, solution, system_rhs,</div><div class="line">	PreconditionIdentity());</div></pre></td></tr></table></figure></p>
+<p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">void output_results() const &#123;&#125;</div><div class="line">DataOut&lt;2&gt; data_out;</div><div class="line">data_out.attach_dof_handler(dof_handler);</div><div class="line">data_out.add_data_vector(solution, &quot;solution&quot;);</div><div class="line">data_out.build_patches();</div><div class="line">std::ofstream output (&quot;solution.gpl&quot;)	//gnuplot format</div><div class="line">data_out.write_gnuplot(output);</div></pre></td></tr></table></figure></p>
+<p>最后 run(),就解决了矩形区域，0边值，右端为1的Laplace问题。主要的技术问题出现在组装矩阵与边界标识那几步。</p>
+<h2 id="Normal-Level"><a href="#Normal-Level" class="headerlink" title="Normal Level"></a>Normal Level</h2><h3 id="右端项和边界条件"><a href="#右端项和边界条件" class="headerlink" title="右端项和边界条件"></a>右端项和边界条件</h3><p>继承自 Function.h<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">int</span> dim&gt;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RightHandSide</span> :</span> <span class="keyword">public</span> Function&lt;dim&gt;&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	RightHandSide() : Function&lt;dim&gt;() &#123;&#125;</div><div class="line">	<span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">value</span> <span class="params">(<span class="keyword">const</span> Point&lt;dim&gt; &amp;p,</span></span></div><div class="line"><span class="function"><span class="params">		<span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> component = <span class="number">0</span>)</span> <span class="keyword">const</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>假设右端是 4(x<sup>4</sup>+y<sup>4</sup>)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">int</span> dim&gt;</div><div class="line"><span class="keyword">double</span> RightHandSide&lt;dim&gt;::value (<span class="keyword">const</span> Point&lt;dim&gt; &amp;p,</div><div class="line">                                  <span class="keyword">const</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="comment">/*component*/</span>) <span class="keyword">const</span>&#123;</div><div class="line">  <span class="keyword">double</span> return_value = <span class="number">0</span>;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;dim; ++i)</div><div class="line">    return_value += <span class="number">4</span>*<span class="built_in">std</span>::<span class="built_in">pow</span>(p(i), <span class="number">4</span>);</div><div class="line">  <span class="keyword">return</span> return_value;</div><div class="line">  <span class="comment">// p.square() 表示 |p|^2</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在前面 Laplace 问题的求解中改变右端项与边界条件<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">assemble_system</span><span class="params">()</span></span>&#123;			<span class="comment">//修改这个函数</span></div><div class="line">	QGauss&lt;dim&gt; quadrature_formula(<span class="number">2</span>);</div><div class="line">	<span class="keyword">const</span> RightHandSide&lt;dim&gt; rhs;</div><div class="line">	FEValues&lt;dim&gt; fe_values( fe, quadrature_formula, </div><div class="line">		update_values | update_gradients |</div><div class="line">		update_quadrature_points | update_JxW_values);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>(然后同样定义小矩阵，到 loop over 部分，rhs做下述修改,并对不同的循环做一个merge)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> q_point=<span class="number">0</span>; q_point&lt;n_q_points; ++q_point)</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;dofs_per_cell; ++i)&#123;</div><div class="line">		<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> j=<span class="number">0</span>; j&lt;dofs_per_cell; ++j)</div><div class="line">			cell_matrix(i,j) += (fe_values.shape_grad (i, q_point) *</div><div class="line">                                   fe_values.shape_grad (j, q_point) *</div><div class="line">                                   fe_values.JxW (q_point));</div><div class="line"></div><div class="line">		cell_rhs(i) += (fe_values.shape_value (i, q_point) *</div><div class="line">                            rhs.value (fe_values.quadrature_point (q_point)) *</div><div class="line">                            fe_values.JxW (q_point));</div><div class="line">      &#125;</div></pre></td></tr></table></figure></p>
+<p>(边界条件的改动更简单,把ZeroFunction改为自己写的继承Function.h的BoundaryValues<dim>())<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">VectorTools::interpolate_boundary_values (dof_handler, <span class="number">0</span>,</div><div class="line">		BoundaryValues&lt;dim&gt;(),</div><div class="line">		boundary_values);</div></pre></td></tr></table></figure></dim></p>
+<p>(在关闭输出信息后，手动输出迭代信息)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"   "</span> &lt;&lt; solver_control.last_step()</div><div class="line">           &lt;&lt; <span class="string">" CG iterations needed to obtain convergence."</span></div><div class="line">           &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</div></pre></td></tr></table></figure></p>
+<p>(关闭输出信息)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</div><div class="line">	deallog.depth_console(<span class="number">0</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="时间发展方程"><a href="#时间发展方程" class="headerlink" title="时间发展方程"></a>时间发展方程</h3><p>热方程，用显式隐式混合的格式(CN).<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> time;</div><div class="line"><span class="keyword">double</span> time_step;</div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> timestep_number;</div><div class="line"><span class="keyword">const</span> <span class="keyword">double</span> theta;</div></pre></td></tr></table></figure></p>
+<p>关于 constraint_matrix 的解释:节点约束？false的含义是:”不会在矩阵的与约束相关的自由度上写入元素”<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ConstraintMatrix constraints;</div><div class="line">constraints.clear();</div><div class="line">DoFTools::make_hanging_node_constraints (dof_handler, constraints);</div><div class="line">VectorTools::interpolate_boundary_values(dof_handler, <span class="number">0</span>,</div><div class="line">	ZeroFunction&lt;dim&gt;(), constraints);</div><div class="line">constraints.close();</div><div class="line"></div><div class="line">CompressedSparsityPattern csp(dof_handler.n_dofs());</div><div class="line">DoFTools::make_sparsity_pattern(dof_handler, csp, constraints,</div><div class="line">	<span class="comment">/*keep_constrained_dofs = */</span> <span class="literal">false</span>);</div><div class="line">sparsity_pattern.copy_from(csp);</div></pre></td></tr></table></figure></p>
+<p>关于 mass 矩阵和 Laplace 矩阵:在 mass 矩阵中，\(m<em>{ij} = \int</em>\Omega a(x) \phi_i(x) \phi<em>j(x) dx\)，且默认\(a(x) =1\).<br>在Laplace矩阵中，\(a</em>{ij} = \int_\Omega a(x) \nabla\phi_i(x) \nabla\phi_j(x) dx\)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">MatrixCreator::create_laplace_matrix(dof_handler, </div><div class="line">									QGauss&lt;dim&gt;(fe.degree+<span class="number">1</span>),</div><div class="line">                               	laplace_matrix,</div><div class="line">                        			(<span class="keyword">const</span> Function&lt;dim&gt; *)<span class="number">0</span>,</div><div class="line">                       			constraints);</div></pre></td></tr></table></figure></p>
+<p>每一个时间步的求解(如用SSOR预条件)<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">PreconditionSSOR&lt;&gt; preconditioner;</div><div class="line">preconditioner.initialize(system_matrix, <span class="number">1.0</span>);</div><div class="line">cg.solve(system_matrix, solution, system_rhs, preconditioner);</div><div class="line"></div><div class="line">constraints.distribute(solution);</div></pre></td></tr></table></figure></p>
+<p>run()函数中关于 main loop 的部分<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> (time &lt;= <span class="number">0.5</span>)&#123;</div><div class="line">	time += time_step;</div><div class="line">	++timestep_number;</div><div class="line">	</div><div class="line">	mass_matrix.vmult(system_rhs, old_solution);</div><div class="line">	laplace_matrix.vmult(tmp, old_solution);</div><div class="line">	system_rhs.add(-(<span class="number">1</span>-theta) * time_step, tmp);</div><div class="line">	</div><div class="line">	<span class="comment">//函数的离散直接用VectorTool来做</span></div><div class="line">	RightHandSide&lt;dim&gt; rhs_function;</div><div class="line">    rhs_function.set_time(time);</div><div class="line">    VectorTools::create_right_hand_side(dof_handler,</div><div class="line">                                        QGauss&lt;dim&gt;(fe.degree+<span class="number">1</span>),</div><div class="line">                                        rhs_function,</div><div class="line">                                        tmp);</div><div class="line">    forcing_terms = tmp;</div><div class="line">    forcing_terms *= time_step * theta;</div><div class="line"></div><div class="line">    rhs_function.set_time(time - time_step);</div><div class="line">    VectorTools::create_right_hand_side(dof_handler,</div><div class="line">                                        QGauss&lt;dim&gt;(fe.degree+<span class="number">1</span>),</div><div class="line">                                        rhs_function,</div><div class="line">                                        tmp);</div><div class="line">    forcing_terms.add(time_step * (<span class="number">1</span> - theta), tmp);</div><div class="line">    </div><div class="line">    system_rhs += forcing_terms;</div><div class="line">    system_matrix.copy_from(mass_matrix);</div><div class="line">    system_matrix.add(theta * time_step, laplace_matrix);</div><div class="line">    constraints.condense (system_matrix, system_rhs);</div><div class="line">    </div><div class="line">    &#123;</div><div class="line">      BoundaryValues&lt;dim&gt; boundary_values_function;</div><div class="line">      boundary_values_function.set_time(time);</div><div class="line">      <span class="built_in">std</span>::<span class="built_in">map</span>&lt;types::global_dof_index, <span class="keyword">double</span>&gt; boundary_values;</div><div class="line">      VectorTools::interpolate_boundary_values(dof_handler,</div><div class="line">                                               <span class="number">0</span>,</div><div class="line">                                               boundary_values_function,</div><div class="line">                                               boundary_values);</div><div class="line">      MatrixTools::apply_boundary_values(boundary_values,</div><div class="line">                                         system_matrix,</div><div class="line">                                         solution,</div><div class="line">                                         system_rhs);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="小结-二-动手求解热方程"><a href="#小结-二-动手求解热方程" class="headerlink" title="小结(二) 动手求解热方程"></a>小结(二) 动手求解热方程</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Applied-Math/" rel="tag"># Applied Math</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/15/shell基本命令/" rel="next" title="Shell 基本命令">
+                <i class="fa fa-chevron-left"></i> Shell 基本命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+<span id="busuanzi_container_page_pv">
+   本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+</span>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">白河</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Include-files"><span class="nav-number">1.</span> <span class="nav-text">Include files</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-tria-h"><span class="nav-number">1.1.</span> <span class="nav-text">< deal.II/grid/tria.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-tria-accessor-h"><span class="nav-number">1.2.</span> <span class="nav-text">< deal.II/grid/tria_accessor.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-tria-iterator-h"><span class="nav-number">1.3.</span> <span class="nav-text">< deal.II/grid/tria_iterator.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-grid-generator-h"><span class="nav-number">1.4.</span> <span class="nav-text">< deal.II/grid/grid_generator.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-tria-boundary-lib-h"><span class="nav-number">1.5.</span> <span class="nav-text">< deal.II/grid/tria_boundary_lib.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-grid-out-h"><span class="nav-number">1.6.</span> <span class="nav-text">< deal.II/grid/grid_out.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-dofs-dof-handler-h"><span class="nav-number">1.7.</span> <span class="nav-text">< deal.II/dofs/dof_handler.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-fe-fe-q-h"><span class="nav-number">1.8.</span> <span class="nav-text">< deal.II/fe/fe_q.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-dofs-dof-tools-h"><span class="nav-number">1.9.</span> <span class="nav-text">< deal.II/dofs/dof_tools.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-sparse-matrix-h"><span class="nav-number">1.10.</span> <span class="nav-text">< deal.II/lac/sparse_matrix.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-compressed-sparsity-pattern-h"><span class="nav-number">1.11.</span> <span class="nav-text">< deal.II/lac/compressed_sparsity_pattern.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-dofs-dof-renumbering-h"><span class="nav-number">1.12.</span> <span class="nav-text">< deal.II/dofs/dof_renumbering.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-dofs-dof-accessor-h"><span class="nav-number">1.13.</span> <span class="nav-text">< deal.II/dofs/dof_accessor.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-fe-fe-values-h"><span class="nav-number">1.14.</span> <span class="nav-text">< deal.II/fe/fe_values.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-base-quadrature-lib-h"><span class="nav-number">1.15.</span> <span class="nav-text">< deal.II/base/quadrature_lib.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-base-function-h"><span class="nav-number">1.16.</span> <span class="nav-text">< deal.II/base/function.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-numerics-vector-tools-h"><span class="nav-number">1.17.</span> <span class="nav-text">< deal.II/numerics/vector_tools.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-numerics-matrix-tools-h"><span class="nav-number">1.18.</span> <span class="nav-text">< deal.II/numerics/matrix_tools.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-vector-h"><span class="nav-number">1.19.</span> <span class="nav-text">< deal.II/lac/vector.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-full-matrix-h"><span class="nav-number">1.20.</span> <span class="nav-text">< deal.II/lac/full_matrix.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-solver-cg-h"><span class="nav-number">1.21.</span> <span class="nav-text">< deal.II/lac/solver_cg.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-precondition-h"><span class="nav-number">1.22.</span> <span class="nav-text">< deal.II/lac/precondition.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-numerics-data-out-h"><span class="nav-number">1.23.</span> <span class="nav-text">< deal.II/numerics/data_out.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-base-logstream-h"><span class="nav-number">1.24.</span> <span class="nav-text">< deal.II/base/logstream.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-base-utilities-h"><span class="nav-number">1.25.</span> <span class="nav-text">< deal.II/base/utilities.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-lac-constraint-matrix-h"><span class="nav-number">1.26.</span> <span class="nav-text">< deal.II/lac/constraint_matrix.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-grid-grid-refinement-h"><span class="nav-number">1.27.</span> <span class="nav-text">< deal.II/grid/grid_refinement.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-numerics-error-estimator-h"><span class="nav-number">1.28.</span> <span class="nav-text">< deal.II/numerics/error_estimator.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-numerics-solution-transfer-h"><span class="nav-number">1.29.</span> <span class="nav-text">< deal.II/numerics/solution_transfer.h ></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-deal-II-numerics-error-estimator-h-1"><span class="nav-number">1.30.</span> <span class="nav-text">< deal.II/numerics/error_estimator.h ></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Operations"><span class="nav-number">2.</span> <span class="nav-text">Basic Operations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#using-namespace-dealii"><span class="nav-number">2.1.</span> <span class="nav-text">using namespace dealii;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩形网格剖分"><span class="nav-number">2.2.</span> <span class="nav-text">矩形网格剖分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历单元"><span class="nav-number">2.3.</span> <span class="nav-text">遍历单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配自由度"><span class="nav-number">2.4.</span> <span class="nav-text">分配自由度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-一-解Laplace方程"><span class="nav-number">2.5.</span> <span class="nav-text">小结(一): 解Laplace方程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Normal-Level"><span class="nav-number">3.</span> <span class="nav-text">Normal Level</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#右端项和边界条件"><span class="nav-number">3.1.</span> <span class="nav-text">右端项和边界条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间发展方程"><span class="nav-number">3.2.</span> <span class="nav-text">时间发展方程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-二-动手求解热方程"><span class="nav-number">3.3.</span> <span class="nav-text">小结(二) 动手求解热方程</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">白河</span>
+
+  
+</div>
+
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv">人；</span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
