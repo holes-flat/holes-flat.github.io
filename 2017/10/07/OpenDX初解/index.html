@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -95,17 +95,18 @@
 
 
 
-<meta name="description" content="hello! Test SSH-key!">
+<meta name="description" content="从 dx-sample 和 dx-doc 中选择了一些有用的部分进行学习。">
+<meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenDX初解">
 <meta property="og:url" content="http://yoursite.com/2017/10/07/OpenDX初解/index.html">
 <meta property="og:site_name" content="白河之家">
-<meta property="og:description" content="hello! Test SSH-key!">
+<meta property="og:description" content="从 dx-sample 和 dx-doc 中选择了一些有用的部分进行学习。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-12T03:57:28.695Z">
+<meta property="og:updated_time" content="2017-10-16T15:23:17.365Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenDX初解">
-<meta name="twitter:description" content="hello! Test SSH-key!">
+<meta name="twitter:description" content="从 dx-sample 和 dx-doc 中选择了一些有用的部分进行学习。">
 
 
 
@@ -325,8 +326,27 @@
       
 
       
-        <p>hello! Test SSH-key! </p>
-
+        <p>从 dx-sample 和 dx-doc 中选择了一些有用的部分进行学习。<br><a id="more"></a></p>
+<p>##　安装DX包<br>两种方法:　一是从源里下载<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install dx</div></pre></td></tr></table></figure></p>
+<p>下载后查看 dx 包的简介,这是 IBM 开发的一款数据可视化软件,历史比较悠久。<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt show dx</div></pre></td></tr></table></figure></p>
+<p>运行命令打开图形界面<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dx</div></pre></td></tr></table></figure></p>
+<p>顺利打开了界面,但可能跳出警告<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">XtWarning: blablab...</div></pre></td></tr></table></figure></p>
+<p>原因可能是字体无法识别，可下载字体的包然后重新启动Ｘ服务解决<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install xfonts-75-dpi</div><div class="line">pkill X</div></pre></td></tr></table></figure></p>
+<p>最基本的帮助文件可通过图形界面选项中的 Tutorial 和 Samples 查看.</p>
+<p>从源里安装的 dx 包不知为何,在退出图形界面后有时仍保留了 dxexec 进程,为了防止内存占用过多,可以手动杀死进程<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pkill dx</div></pre></td></tr></table></figure></p>
+<p>或者可以从源码包里安装, 一个基本的问题是官网上安装包版本似乎没有写明支持Ubuntu.需要的同学可以从群里下载.但是修改了几个常见的小错误后,卡在一个比较致命的错误上进行不下去了:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">error: narrowing conversion of ‘130’ from ‘int’ to ‘char’ inside &#123; &#125; [-Wnarrowing]</div></pre></td></tr></table></figure></p>
+<p>类型转换错误,具体解决方案未知.</p>
+<h2 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h2><h3 id="General-格式"><a href="#General-格式" class="headerlink" title="General 格式"></a>General 格式</h3><p>使用 dx 语言风格的头文件, 可以指定需要读取的文件, 其内容不限于矩阵数据，还包括各种列表和其他风格的数据, 其中头文件以 .general 为后缀.<br>比如一个简单的数据文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"># file :  a.data</div><div class="line">0 0 0 0 0</div><div class="line">0 1 1 1 0</div><div class="line">0 1 2 1 0</div><div class="line">0 1 1 1 0</div><div class="line">0 0 0 0 0</div></pre></td></tr></table></figure></p>
+<p>我们可以打开GUI,选择导入数据，并指定 General 格式,通过GUI可以设定网格，比如选择 regular 的网格, 指定数据是 a.data, 并 skip 数据的第一行, 网格尺寸 5*5 , 保存这个 general 头文件, 选择显示数据, dx 会通过默认的网络画出图片.</p>
+<p>重新打开 .general 文件, 大致可以发现该文件使用 keyword statement 的方法描述数据.</p>
+<p>每行都有一个关键词, 比如 file 关键词 = a.data, 其中 positions 关键词比较特殊, 它描述了网格顶点的信息, 特殊之处在于它可以是多行的.末尾用 end 结束.注释是井号.</p>
+<h3 id="dx-格式"><a href="#dx-格式" class="headerlink" title="dx 格式"></a>dx 格式</h3><p>我们还可以直接用 .dx 格式的头文件来描述数据, 这也是最常使用的方式.比如对上面那个 a.data 的例子，用 .dx 文件也可以比较方便地描述.</p>
+<p>首先我们需要知道，dx 中的数据由一些 field 组成, 每个 field 含有许多个组件(component), 这些组件可以是数组(Array), 也可以是本身定义好的一些网格结构, 这些组件或者场都叫做对象(Object),有自己定义的别名.　</p>
+<p>对象可以有各自的属性(Attribute), 常见的比如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;dep&quot; : 依赖, data 组件可以依赖于 positions 或者 connections 组件</div><div class="line">&quot;ref&quot; : 对应, connections 组件可以对应于 positions</div><div class="line">&quot;element type&quot; : 在 connections 组件中给出插值方式</div></pre></td></tr></table></figure></p>
+<p> 其中, 一个场最基本的三个组件是 data, positions, connections, data组件只能出现一次.<br> <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">data: 数据,可能依赖于 positions, 也可能依赖于 connections.</div><div class="line">positions: n 维空间坐标</div><div class="line">connections: 点之间的关系, 网格结构(默认插值)</div></pre></td></tr></table></figure></p>
+<p> 手动写一个.dx文件加深印象:<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">object 1 class gridpositions counts 5 5</div><div class="line">origin 0 0</div><div class="line">delta 1 0</div><div class="line">delta 0 1</div><div class="line"></div><div class="line">object 2 class gridconnections counts 5 5</div><div class="line">attribute &quot;element type&quot; string &quot;quads&quot;</div><div class="line">attribute &quot;ref&quot; string &quot;positions&quot;</div><div class="line"></div><div class="line"># 如果依赖connections, 应该有 16 个数据</div><div class="line">object 3 class array type float rank 0 items 25</div><div class="line">data file a.data,13</div><div class="line">attribute &quot;dep&quot; string &quot;positions&quot;</div><div class="line"></div><div class="line">object &quot;hello&quot; class field </div><div class="line">component &quot;positions&quot; value 1</div><div class="line">component &quot;connections&quot; value 2</div><div class="line">component &quot;data&quot; value 3</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p> 注意对一般网格，所有三个组件往往都是 array, 并且通过 data follows 直接列出数据，当 rank 大于０时, 还需加上 shape 的描述。 </p>
+<h2 id="有用的模块"><a href="#有用的模块" class="headerlink" title="有用的模块"></a>有用的模块</h2>
       
     </div>
     
@@ -340,6 +360,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
       
 
       
@@ -413,8 +439,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <p class="site-author-name" itemprop="name">白河</p>
@@ -466,6 +501,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#导入数据"><span class="nav-number">1.</span> <span class="nav-text">导入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#General-格式"><span class="nav-number">1.1.</span> <span class="nav-text">General 格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dx-格式"><span class="nav-number">1.2.</span> <span class="nav-text">dx 格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有用的模块"><span class="nav-number">2.</span> <span class="nav-text">有用的模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
